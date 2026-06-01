@@ -119,9 +119,12 @@ function StudentDashboard({ userId }: { userId: string }) {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8">
-      <div>
-        <h1 className="font-display text-3xl font-semibold tracking-tight">Tu espacio de estudio</h1>
-        <p className="text-muted-foreground">Sigue aprendiendo. Cada repaso cuenta.</p>
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="font-display text-3xl font-semibold tracking-tight">Tu espacio de estudio</h1>
+          <p className="text-muted-foreground">Sigue aprendiendo. Cada repaso cuenta.</p>
+        </div>
+        <StudentIdBadge userId={userId} />
       </div>
 
       <div className="grid gap-4 sm:grid-cols-3">
