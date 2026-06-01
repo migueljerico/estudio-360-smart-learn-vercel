@@ -13,6 +13,9 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppLibraryRouteImport } from './routes/app.library'
+import { Route as AppQuizzesIdRouteImport } from './routes/app.quizzes.$id'
+import { Route as AppDecksIdRouteImport } from './routes/app.decks.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -34,31 +37,76 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppLibraryRoute = AppLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppQuizzesIdRoute = AppQuizzesIdRouteImport.update({
+  id: '/quizzes/$id',
+  path: '/quizzes/$id',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDecksIdRoute = AppDecksIdRouteImport.update({
+  id: '/decks/$id',
+  path: '/decks/$id',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/app/library': typeof AppLibraryRoute
   '/app/': typeof AppIndexRoute
+  '/app/decks/$id': typeof AppDecksIdRoute
+  '/app/quizzes/$id': typeof AppQuizzesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/app/library': typeof AppLibraryRoute
   '/app': typeof AppIndexRoute
+  '/app/decks/$id': typeof AppDecksIdRoute
+  '/app/quizzes/$id': typeof AppQuizzesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
+  '/app/library': typeof AppLibraryRoute
   '/app/': typeof AppIndexRoute
+  '/app/decks/$id': typeof AppDecksIdRoute
+  '/app/quizzes/$id': typeof AppQuizzesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/login' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/login'
+    | '/app/library'
+    | '/app/'
+    | '/app/decks/$id'
+    | '/app/quizzes/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/app'
-  id: '__root__' | '/' | '/app' | '/login' | '/app/'
+  to:
+    | '/'
+    | '/login'
+    | '/app/library'
+    | '/app'
+    | '/app/decks/$id'
+    | '/app/quizzes/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/login'
+    | '/app/library'
+    | '/app/'
+    | '/app/decks/$id'
+    | '/app/quizzes/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -97,15 +145,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/library': {
+      id: '/app/library'
+      path: '/library'
+      fullPath: '/app/library'
+      preLoaderRoute: typeof AppLibraryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/quizzes/$id': {
+      id: '/app/quizzes/$id'
+      path: '/quizzes/$id'
+      fullPath: '/app/quizzes/$id'
+      preLoaderRoute: typeof AppQuizzesIdRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/decks/$id': {
+      id: '/app/decks/$id'
+      path: '/decks/$id'
+      fullPath: '/app/decks/$id'
+      preLoaderRoute: typeof AppDecksIdRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
+  AppLibraryRoute: typeof AppLibraryRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppDecksIdRoute: typeof AppDecksIdRoute
+  AppQuizzesIdRoute: typeof AppQuizzesIdRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppLibraryRoute: AppLibraryRoute,
   AppIndexRoute: AppIndexRoute,
+  AppDecksIdRoute: AppDecksIdRoute,
+  AppQuizzesIdRoute: AppQuizzesIdRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
