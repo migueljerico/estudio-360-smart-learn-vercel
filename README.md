@@ -134,4 +134,4 @@ netlify dev --port 8889
 
 ---
 
-© 2025 Estudio360 · Aprender es un acto diario.
+© 2026 Estudio360 · Aprender es un acto diario.
